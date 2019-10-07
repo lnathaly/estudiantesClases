@@ -10,6 +10,8 @@ import a.com.entity.Estudiante;
 import a.com.interfaces.ClasesFacadeLocal;
 import a.com.interfaces.EstudianteFacadeLocal;
 import java.io.Serializable;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -20,31 +22,47 @@ import javax.inject.Named;
  */
 @Named
 @RequestScoped
-public class controllerIndex implements Serializable{
-    
+public class controllerIndex implements Serializable {
+
     @EJB
     EstudianteFacadeLocal estudianteFacade;
-    
-    @EJB 
+
+    @EJB
     ClasesFacadeLocal claseFacade;
-    
+
     private int cedula;
+
     private String nombre;
+
     private String nombreC;
+
     private int duracion;
 
-    public void crearEstudiante(){
-      Estudiante es =new Estudiante (cedula, nombre);
-      estudianteFacade.create(es);
+    List<Estudiante> listaEstudiantes;
+
+    List<Clases> listaClases;
+    
+    private Estudiante estudiante;
+    
+    private Clases clases;
+
+    @PostConstruct
+    public void iniciar() {
+
+        listaEstudiantes = estudianteFacade.findAll();
+        listaClases = claseFacade.findAll();
     }
-    
-    public void crearClases (){
-      Clases clases = new Clases(nombreC, duracion);
-      claseFacade.create(clases);
+
+    public void crearEstudiante() {
+        Estudiante es = new Estudiante(cedula, nombre);
+        estudianteFacade.create(es);
     }
-    
-      
-    
+
+    public void crearClases() {
+        Clases clases = new Clases(nombreC, duracion);
+        claseFacade.create(clases);
+    }
+
     public int getCedula() {
         return cedula;
     }
@@ -76,7 +94,39 @@ public class controllerIndex implements Serializable{
     public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
+
+    public List<Estudiante> getListaEstudiantes() {
+        return listaEstudiantes;
+    }
+
+    public void setListaEstudiantes(List<Estudiante> listaEstudiantes) {
+        this.listaEstudiantes = listaEstudiantes;
+    }
+
+    public List<Clases> getListaClases() {
+        return listaClases;
+    }
+
+    public void setListaClases(List<Clases> listaClases) {
+        this.listaClases = listaClases;
+    }
+
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    public Clases getClases() {
+        return clases;
+    }
+
+    public void setClases(Clases clases) {
+        this.clases = clases;
+    }
     
     
-    
+
 }

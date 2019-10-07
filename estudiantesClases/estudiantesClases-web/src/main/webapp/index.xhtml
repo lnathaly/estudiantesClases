@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
@@ -10,22 +11,43 @@
     <h:body>
         <h:form id="tabla" >
             <p:growl  id="growl" showDetail="true" sticky="true"  />  
-            <p:panel  header="Bienvenido a su carro de compras" style="text-align: center"></p:panel>
-                <p:panel header="Realiza tu compra" style="text-align: center">
-                <p:outputLabel value="Cedula" />
-                <p:inputText value="#{controllerIndex.cedula}" />
-                <p:outputLabel value="Nombre: " />
-                <p:inputText value="#{controllerIndex.nombre}" />
-                <p:commandButton value="Agregar" actionListener="#{controllerIndex.crearEstudiante}" />
+            <p:panel id="udec"  header="UDEC" style="text-align: center">
+                <p:panel header="Registra una nuevo estudiante" style="text-align: center">
+                    <h:panelGrid  columns="2" headerClass="Registra un nuevo estudiante" style="text-align: center">
+
+                        <p:outputLabel value="Cedula" style="text-align: center" />
+                        <p:inputText value="#{controllerIndex.cedula}" />
+                        <p:outputLabel value="Nombre: " />
+                        <p:inputText value="#{controllerIndex.nombre}" />
+                        <p:commandButton value="Agregar" actionListener="#{controllerIndex.crearEstudiante}" />
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel id="clase" header="Registra una nueva clase" style="text-align: center">
+                    <h:panelGrid  columns="2" style="text-align: center">
+                        <p:outputLabel value="Nombre: " />
+                        <p:inputText value="#{controllerIndex.nombreC}" />
+                        <p:outputLabel value="Duracion: " />
+                        <p:inputText value="#{controllerIndex.duracion}" />
+                        <p:commandButton value="Agregar" actionListener="#{controllerIndex.crearClases}" update=":tabla:udec" /> 
+                    </h:panelGrid>
+
+                </p:panel>
+                <p:panel header="Registra una nueva clase" style="text-align: center">
+                    <h:panelGrid  columns="2" style="text-align: center">
+                        <p:selectOneMenu value="#{controllerIndex.clases}" >
+                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                            <f:selectItems value="#{controllerIndex.listaClases}" var="p" itemLabel="#{p.nombre}" itemValue="#{p}"/>
+                        </p:selectOneMenu>
+                        <p:selectOneMenu value="#{controllerIndex.estudiante}" >
+                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                            <f:selectItems value="#{controllerIndex.listaEstudiantes}" var="p" itemLabel="#{p.nombre}" itemValue="#{p}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+
+                </p:panel>
             </p:panel>
-            <p:panel  header="Bienvenido a su carro de compras" style="text-align: center"></p:panel>
-                <p:panel header="Realiza tu compra" style="text-align: center">
-                <p:outputLabel value="Nombre: " />
-                <p:inputText value="#{controllerIndex.nombreC}" />
-                <p:outputLabel value="Duracion: " />
-                <p:inputText value="#{controllerIndex.duracion}" />
-                <p:commandButton value="Agregar" actionListener="#{controllerIndex.crearClases}" />
-            </p:panel>
+
         </h:form>
 
     </h:body>
