@@ -35,15 +35,16 @@
                 </p:panel>
                 <p:panel header="Registra una nueva clase" style="text-align: center">
                     <h:panelGrid  columns="2" style="text-align: center">
-                        <p:selectOneMenu value="#{controllerIndex.clases}" >
+                        <p:selectOneMenu value="#{controllerIndex.clases}" converter="omnifaces.SelectItemsConverter"  >
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
-                            <f:selectItems value="#{controllerIndex.listaClases}" var="p" itemLabel="#{p.nombre}" itemValue="#{p}"/>
+                            <f:selectItems value="#{controllerIndex.listaClases}" var="c" itemLabel="#{c.nombre}" itemValue="#{c}"/>
                         </p:selectOneMenu>
-                        <p:selectOneMenu value="#{controllerIndex.estudiante}" >
+                        <p:selectOneMenu value="#{controllerIndex.estudiante}" converter="omnifaces.SelectItemsConverter"  >
                             <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
                             <f:selectItems value="#{controllerIndex.listaEstudiantes}" var="p" itemLabel="#{p.nombre}" itemValue="#{p}"/>
                         </p:selectOneMenu>
                     </h:panelGrid>
+                    <p:commandButton value="Agregar" actionListener="#{controllerIndex.agregarEstudiantesaClases}"/>
 
                 </p:panel>
             </p:panel>

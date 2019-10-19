@@ -21,27 +21,27 @@ import javax.persistence.Table;
  */
 @Entity
 @Table
-public class Clases implements Serializable{
-    
+public class Clases implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo")
     private int codigo;
-    
+
     @Column(name = "nombre")
     private String nombre;
-    
+
     @Column(name = "duracion")
     private int duracion;
-    
+
     @ManyToMany(mappedBy = "clasesList")
     private List<Estudiante> estudianteList;
 
     public Clases() {
     }
 
-    public Clases( String nombre, int duracion) {
-  
+    public Clases(String nombre, int duracion) {
+
         this.nombre = nombre;
         this.duracion = duracion;
     }
@@ -77,7 +77,32 @@ public class Clases implements Serializable{
     public void setEstudianteList(List<Estudiante> estudianteList) {
         this.estudianteList = estudianteList;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "Clases{" + "codigo=" + codigo + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + this.codigo;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Clases other = (Clases) obj;
+        if (this.codigo != other.codigo) {
+            return false;
+        }
+        return true;
+    }
+
 }

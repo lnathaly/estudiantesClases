@@ -20,16 +20,16 @@ import javax.persistence.Table;
  * @author LauraDesarrollo
  */
 @Entity
-@Table (name =  "estudiante")
-public class Estudiante implements Serializable{
-    
+@Table(name = "estudiante")
+public class Estudiante implements Serializable {
+
     @Id
-    @Column(name ="cedula")
+    @Column(name = "cedula")
     private int cedula;
-    
+
     @Column(name = "nombre")
     private String nombre;
-    
+
     @JoinTable(name = "estudiante_clase", joinColumns = {
         @JoinColumn(name = "id_estudiante", referencedColumnName = "cedula")}, inverseJoinColumns = {
         @JoinColumn(name = "id_clase", referencedColumnName = "codigo")})
@@ -67,6 +67,32 @@ public class Estudiante implements Serializable{
     public void setClasesList(List<Clases> clasesList) {
         this.clasesList = clasesList;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Estudiante{" + "cedula=" + cedula + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + this.cedula;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Estudiante other = (Estudiante) obj;
+        if (this.cedula != other.cedula) {
+            return false;
+        }
+        return true;
+    }
+
 }

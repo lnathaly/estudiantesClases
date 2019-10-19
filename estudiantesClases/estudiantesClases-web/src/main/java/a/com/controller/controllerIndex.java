@@ -10,6 +10,7 @@ import a.com.entity.Estudiante;
 import a.com.interfaces.ClasesFacadeLocal;
 import a.com.interfaces.EstudianteFacadeLocal;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -40,8 +41,7 @@ public class controllerIndex implements Serializable {
 
     List<Estudiante> listaEstudiantes;
 
-    List<Clases> listaClases;
-    
+    List<Clases> listaClases;    
     private Estudiante estudiante;
     
     private Clases clases;
@@ -59,8 +59,24 @@ public class controllerIndex implements Serializable {
     }
 
     public void crearClases() {
-        Clases clases = new Clases(nombreC, duracion);
-        claseFacade.create(clases);
+        Clases clase = new Clases(nombreC, duracion);
+        claseFacade.create(clase);
+    }
+    
+    public void agregarEstudiantesaClases(){
+     
+     System.out.println("entre");
+     Estudiante estu = estudianteFacade.find(estudiante.getCedula());
+     Clases cla = claseFacade.find(clases.getCodigo());
+     System.out.print(cla);
+     System.out.print(estu);
+     List<Estudiante> listaEstudiante = new ArrayList<>();
+     listaEstudiante.add(estu);
+     List<Clases> listaClase = new ArrayList<>();
+     listaClase.add(cla);
+     estu.setClasesList(listaClase);
+     cla.setEstudianteList(listaEstudiante);
+     claseFacade.edit(cla);
     }
 
     public int getCedula() {
